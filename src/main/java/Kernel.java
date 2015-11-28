@@ -36,7 +36,6 @@ public class Kernel extends UntypedActor {
     public void onReceive(Object obj) throws Exception {
         if (obj instanceof File) {// start file reading
             routerReaders = getContext().actorOf(Props.create(Reader.class), "reader");
-            //проще и быстрее вычитать файл в отдельном методе, но сделаем через акторы
             routerReaders.tell(new Reader.Job(jobIdCounter, (File) obj), self());
             jobs.add(jobIdCounter++);
 
